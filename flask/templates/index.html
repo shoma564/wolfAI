@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    
+<title>Index Page</title>
+
+  </head>
+  <body>
+  
+<h1>slackで人狼！！</h1>
+<p>slackに接続するための情報を入力してください。</p>
+
+
+<form action="/result" method="post">
+  <div>
+    <label for="webhook_url">webhook_url</label>
+    <input type="text" id="webhook_url" name="webhook_url" required>
+  </div>
+
+  <div>
+    <label for="Cname">Channel_name</label>
+    <input type="text" id="Cname" name="Cname" min="0" max="100" required>
+  </div>
+
+  <div>
+    <label for="Cid">Channel_id</label>
+    <input type="text" id="Cid" name="Cid" min="0" max="100" required>
+  </div>
+
+  <div>
+    <label for="token">token</label>
+    <input type="text" id="token" name="token" min="0" max="100" required>
+  </div>
+
+  <div>
+    <label for="user">user</label>
+    <input type="text" id="user" name="user" min="0" max="100" required>
+  </div>
+
+　<button>送信</button>
+</form>
+
+  </body>
+</html>
