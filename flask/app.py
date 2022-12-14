@@ -20,7 +20,7 @@ def result():
     user = request.form["user"]
     sub_date = str(datetime.datetime.today())
 
-    db=mysql.connector.connect(host="172.24.20.100", user="root", password="root", database="slack")
+    db=mysql.connector.connect(host="mysql", user="root", password="root", database="slack")
     cursor=db.cursor()
 #    cursor.execute("USE slack")
 #    db.commit()
