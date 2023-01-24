@@ -18,10 +18,15 @@ services:
 
   flask:
     container_name: flask
-    build: 
-      context: ./flask
-      dockerfile: Dockerfile
+#    build: 
+#      context: ./flask
+#      dockerfile: Dockerfile
+    image: shomaigu/pro-flask-slack:latest
     ports: 
       - 80:80
     restart: always
     tty: true
+    volumes:
+    - ./requirements.txt /usr/src/app/requirements.txt
+    - ./app.py /usr/src/app/app.py
+    - ./templates /usr/src/app/templates

@@ -1,6 +1,6 @@
-FROM ubuntu:18.04
-
-RUN apt -y update
+#FROM ubuntu:18.04
+FROM shomaigu/ubuntu-base
+#RUN apt -y update
 RUN apt -y install python3 python3-pip curl wget
 RUN apt autoremove
 RUN pip3 install --upgrade pip setuptools
