@@ -8,7 +8,8 @@ RUN pip3 install --upgrade pip setuptools
 
 RUN mkdir -p /usr/src/app/templates
 ADD ./requirements.txt /usr/src/app/
-ADD ./app.py /usr/src/app/
+#ADD ./app.py /usr/src/app/
+ADD ./app.py /usr/src/app/ 
 ADD ./templates /usr/src/app/templates
 RUN pip3 install --no-cache-dir -r /usr/src/app/requirements.txt
 
