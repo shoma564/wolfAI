@@ -20,31 +20,33 @@ def act(gameid, charid):
     # 人狼のアクション
     if(int(i[3])== 0):
         # 初日、味方の発見
+        with g.connection.cursor() as cur:
+            cur.execute("select * from characters where position=0 and game_id="+str(gameid))
+            werewolf=cur.fetchall()
         if(int(games[1])==0):
-            with g.connection.cursor() as cur:
-                cur.execute("select * from characters where position=0 and game_id="+str(gameid))
-                werewolf=cur.fetchall()
-            for i in werewolf:
+            for k in werewolf:
                 for j in werewolf:
-                    if (i==j):
+                    if (k==j):
                         pass
                     else:
                         with g.connection.cursor() as cur:
-                            cur.execute("UPDATE deduces SET deduce_wolf=255, deduce_villager=0, deduce_seer=0 WHERE game_id="+str(gameid)+" and char_id="+str(i[1])+" and target="+str(j[1]))
+                            cur.execute("UPDATE deduces SET deduce_wolf=255, deduce_villager=0, deduce_seer=0 WHERE game_id="+str(gameid)+" and char_id="+str(k[1])+" and target="+str(j[1]))
                             g.connection.commit()
+        if (int(i[1])==int(werewolf[0][1]) or int(werewolf[0][5])!=0):
+            with g.connection.cursor() as cur:
+                cur.execute("select * from deduces where life=0 and game_id="+str(gameid)+" and char_id="+str(charid))
+                deduces=cur.fetchall()
+            deduces=list(deduces)
+            deduces.sort(key=lambda x:x[5], reverse=True)
 
-        with g.connection.cursor() as cur:
-            cur.execute("select * from deduces where life=0 and game_id="+str(gameid)+" and char_id="+str(charid))
-            deduces=cur.fetchall()
-        deduces=list(deduces)
-        deduces.sort(key=lambda x:x[5], reverse=True)
-
-        # 殺しの処理
-        wolf_action=deduces[0][2]
-        with g.connection.cursor() as cur:
-            cur.execute("UPDATE characters SET life=2 WHERE game_id="+str(gameid)+" and char_id="+str(wolf_action))
-            cur.execute("UPDATE deduces SET life=2 WHERE game_id="+str(gameid)+" and target="+str(wolf_action))
-            g.connection.commit()
+            # 殺しの処理
+            wolf_action=deduces[0][2]
+            with g.connection.cursor() as cur:
+                cur.execute("UPDATE characters SET life="+str(int(games[1])+1)+" WHERE game_id="+str(gameid)+" and char_id="+str(wolf_action))
+                cur.execute("UPDATE deduces SET life="+str(int(games[1])+1)+" WHERE game_id="+str(gameid)+" and target="+str(wolf_action))
+                g.connection.commit()
+        else :
+            pass
     # 村人のアクション
     elif (int(i[3])== 1):
         pass

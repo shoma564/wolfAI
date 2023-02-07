@@ -3,7 +3,7 @@ import textwrap
 
 # データベースへの接続
 connection = MySQLdb.connect(
-    host='localhost',
+    host='mysql',
     user='root',
     passwd='root',
     db='slack')

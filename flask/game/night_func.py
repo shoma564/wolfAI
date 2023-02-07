@@ -15,10 +15,9 @@ def night(gameid):
         characters=cur.fetchall()
 
     # 夜を通知するメッセージの送信
-    text=[0,0,0,0,10,0,0]
+    text=[0,0,0,0,100,0,0]
     send.send(gameid, text)
-    if (int(characters[0][1])==0):
-        receive.receive(gameid)
+    receive.receive(gameid)
 
     # エージェントの行動
     for i in characters:

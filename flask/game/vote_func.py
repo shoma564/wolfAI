@@ -16,14 +16,14 @@ def vote(gameid):
         characters=cur.fetchall()
 
     # 投票を通知
-    text=[0,0,0,0,12,0,0]
+    text=[0,0,0,0,120,0,0]
     send.send(gameid, text)
 
     recollect=[]
 
     while (True):
         # 誰に投票するか
-        text=[0,0,0,0,12,1,0]
+        text=[0,0,0,0,120,1,0]
         send.send(gameid, text)    
         if (int(characters[0][1])==0):
             player_vote = receive.receive(gameid)
@@ -48,16 +48,16 @@ def vote(gameid):
 
         if (len(recollect)==1):
             # 投票者決定
-            text=[0,0,0,0,12,2,recollect[0]]
+            text=[0,0,0,0,120,2,recollect[0]]
             print(str(recollect[0]))
             # 殺しの処理
             with g.connection.cursor() as cur:
-                cur.execute("UPDATE characters SET life=1 WHERE game_id="+str(gameid)+" and char_id="+str(recollect[0]))
-                cur.execute("UPDATE deduces SET life=1 WHERE game_id="+str(gameid)+" and target="+str(recollect[0]))
+                cur.execute("UPDATE characters SET life=100 WHERE game_id="+str(gameid)+" and char_id="+str(recollect[0]))
+                cur.execute("UPDATE deduces SET life=100 WHERE game_id="+str(gameid)+" and target="+str(recollect[0]))
                 g.connection.commit()
             send.send(gameid, text)
             break
 
         # 決戦投票開始（誰と誰か）
-        text=[0,0,0,0,12,3,recollect]
+        text=[0,0,0,0,120,3,recollect]
         send.send(gameid, text)
